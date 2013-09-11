@@ -255,44 +255,103 @@ public class gui extends javax.swing.JFrame {
 
     private void setConfigBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setConfigBtnActionPerformed
         
-        int bar1;
-        int bar2;
-        int bar3;
-        
-        if (bar1 < bar2 < bar3 ){
-        }
-        
-        
         Serial serialPort = new Serial();
         try{
             serialPort.configPort("/dev/tty.usbserial","aa");
             serialPort.write("VSSSET"+factorSpinner.getValue().toString()+Character.toString('\n'));
             Thread.sleep(800);
             System.out.print(serialPort.read());        
-            serialPort.closePort();
+            
         } catch (Exception ex) {
             Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            serialPort.closePort();
+        } catch (IOException ex) {
+            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        int temp1 = Integer.parseInt(bar1Spinner.getValue().toString());
+        int temp2 = Integer.parseInt(bar2Spinner.getValue().toString());
+        int temp3 = Integer.parseInt(bar3Spinner.getValue().toString());
+        int temp4 = Integer.parseInt(bar4Spinner.getValue().toString());
+        int temp5 = Integer.parseInt(bar5Spinner.getValue().toString());
+        int temp6 = Integer.parseInt(bar6Spinner.getValue().toString());        
+        String bar1 = String.format("%03d",temp1); 
+        String bar2 = String.format("%03d",temp2); 
+        String bar3 = String.format("%03d",temp3); 
+        String bar4 = String.format("%03d",temp4); 
+        String bar5 = String.format("%03d",temp5); 
+        String bar6 = String.format("%03d",temp6); 
+        
+        
+        Serial serialPort2 = new Serial();
+        try{
+            serialPort2.configPort("/dev/tty.usbserial","aa");
+            serialPort2.write("ECTSET"+bar1+bar2+bar3+bar4+bar5+bar6+Character.toString('\n'));
+            Thread.sleep(800);
+            System.out.print(serialPort2.read());        
+            
+        } catch (Exception ex) {
+            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            serialPort2.closePort();
+        } catch (IOException ex) {
+            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
     }//GEN-LAST:event_setConfigBtnActionPerformed
 
     private void readConfigBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readConfigBtnActionPerformed
         
-       
         Serial serialPort = new Serial();
         try {
             serialPort.configPort("/dev/tty.usbserial","aa");
             serialPort.write("VSSREAD"+Character.toString('\n'));
             Thread.sleep(800);
             String received = serialPort.read();   
-            
+            System.out.println(received);
             int factor = Integer.parseInt(received.substring(9,received.length()-2));
-            factorSpinner.setValue(factor);
-            
-            serialPort.closePort();
-            
-        } catch (Exception ex) {
+            factorSpinner.setValue(factor);            
+        } catch (Exception ex) {            
             Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
         }
+        try {
+            serialPort.closePort();
+        } catch (IOException ex) {
+            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        Serial serialPort2 = new Serial();
+            
+            
+            try {
+                serialPort2.configPort("/dev/tty.usbserial","aa");
+                serialPort2.write("ECTREAD"+Character.toString('\n'));
+                Thread.sleep(800);
+                String received = serialPort.read(); 
+                System.out.println(received);
+                String[] split = received.substring(9).split("\\.");            
+                bar1Spinner.setValue(Integer.parseInt(split[0]));
+                bar2Spinner.setValue(Integer.parseInt(split[1]));
+                bar3Spinner.setValue(Integer.parseInt(split[2]));
+                bar4Spinner.setValue(Integer.parseInt(split[3]));
+                bar5Spinner.setValue(Integer.parseInt(split[4]));
+                bar6Spinner.setValue(Integer.parseInt(split[5].substring(0, split[5].length()-2)));                       
+                
+            } catch (Exception ex) {
+                Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        try {
+            serialPort2.closePort();
+        } catch (IOException ex) {
+            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         
     }//GEN-LAST:event_readConfigBtnActionPerformed
 

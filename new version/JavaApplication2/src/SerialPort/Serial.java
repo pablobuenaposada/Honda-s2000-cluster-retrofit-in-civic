@@ -15,7 +15,7 @@ public class Serial {
 	
     private final static String usbPort = "/dev/tty.usbserial";
     private final static String appName = "S2000 Cluster setup";
-    private final static int TIMEOUT=1500;
+    private final static int TIMEOUT=3000;
     private static CommPortIdentifier portId;    
     private static SerialPort serialPort;
     private static OutputStream outputStream;

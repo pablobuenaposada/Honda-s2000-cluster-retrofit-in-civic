@@ -66,7 +66,7 @@ void serialEvent() {
       Serial.println("VSSOK");
     }
     else{
-      Serial.println(inputString);
+      Serial.print(inputString);
     }
   }
   
