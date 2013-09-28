@@ -253,6 +253,10 @@ public class gui extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_factorSpinnerStateChanged
 
+    private int celsius2ADC(int temp){
+        return (int)((3.265034284*(Math.pow(10, -19))*Math.pow(temp,10) - 1.951343817*(Math.pow(10, -16))*Math.pow(temp,9) + 4.870935413*(Math.pow(10, -14))*Math.pow(temp,8) - 6.647521002*(Math.pow(10, -12))*Math.pow(temp,7) + 5.449673997*(Math.pow(10, -10))*Math.pow(temp,6) - 2.706842568*(Math.pow(10, -8))*Math.pow(temp,5) + 6.673031789*(Math.pow(10, -7))*Math.pow(temp,4) + 4.716273857*(Math.pow(10, -6))*Math.pow(temp,3) - 3.72064706*(Math.pow(10, -4))*Math.pow(temp,2) - 4.939427319*(Math.pow(10, -2))*temp + 3.485338965)*(1024/5));
+    }
+    
     private void setConfigBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setConfigBtnActionPerformed
         
         Serial serialPort = new Serial();
@@ -277,12 +281,29 @@ public class gui extends javax.swing.JFrame {
         int temp4 = Integer.parseInt(bar4Spinner.getValue().toString());
         int temp5 = Integer.parseInt(bar5Spinner.getValue().toString());
         int temp6 = Integer.parseInt(bar6Spinner.getValue().toString());        
+        
+        temp1 = celsius2ADC(temp1);
+        temp2 = celsius2ADC(temp2);
+        temp3 = celsius2ADC(temp3);
+        temp4 = celsius2ADC(temp4);
+        temp5 = celsius2ADC(temp5);
+        temp6 = celsius2ADC(temp6); 
+        
+        /*temp1 = 203;
+        temp2 = 156;
+        temp3 = 122;
+        temp4 = 84;
+        temp5 = 53;
+        temp6 = 19;*/
+        
         String bar1 = String.format("%03d",temp1); 
         String bar2 = String.format("%03d",temp2); 
         String bar3 = String.format("%03d",temp3); 
         String bar4 = String.format("%03d",temp4); 
         String bar5 = String.format("%03d",temp5); 
         String bar6 = String.format("%03d",temp6); 
+        
+        System.out.println(bar1);
         
         
         Serial serialPort2 = new Serial();
