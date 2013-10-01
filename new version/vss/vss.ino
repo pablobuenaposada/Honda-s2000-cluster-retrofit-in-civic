@@ -1,81 +1,61 @@
-#include <TimerOne.h>
+#include <FreqMeasure.h>
 #include <EEPROM.h>
+#define vssOut 12
+#define vssIn 8
+#define lowFactor 1
+#define highFactor 2
 
-#define factorAddress 1
-int vssOut = 9;
-int vssIn = 7;
-double scale=0;
-int factor; 
-unsigned long durationHigh=0; 
-unsigned long durationLow=0;
-unsigned long period=0;
-unsigned long duty=0;
 String inputString = "";
+float frequency;
+float factor; //38.29;
 
-void setup(){
+void setup() {
   pinMode(vssOut, OUTPUT); //sets the pin as output
   pinMode(vssIn, INPUT); //sets the pin as input
-  
-  factor = EEPROM.read(factorAddress);
+  factor = (((EEPROM.read(highFactor)*100)+EEPROM.read(lowFactor)))/100;
   inputString.reserve(200);
-  Serial.begin(9600);  
-  Timer1.initialize(); //initializing the Timer1, so we can use pwm function
+  Serial.begin(9600); 
+  FreqMeasure.begin();
 }
- 
-void loop(){ 
-  
-      //reading pulse from vss
-      durationHigh = pulseIn(vssIn,HIGH);
-      durationLow = pulseIn(vssIn,LOW);
-      //divide the pulse to get it "factor" times faster (37 in our case)
-      durationHigh = durationHigh/factor;
-      durationLow = durationLow/factor;
-      //calculing period and duty of the new pulse
-      period=durationHigh+durationLow;
-      scale = 1024/period; //10bit duty in Timer1, range [0,1023]
-      if (scale < 1){ //this is because with low speeds we get duty=0,xx... and this make the pulse all time low (0v)
-        scale=1; //fixing this with the minimum reasonable value (1)
-      }
-      duty=scale*durationHigh;
-      Timer1.pwm(vssOut,duty,period); //we set the new custom pwm on vssOut pin
+
+void loop() {  
+  if (FreqMeasure.available()) {    
+    frequency = F_CPU / FreqMeasure.read();   
+    tone(vssOut,frequency*factor,100);    
+  }
 }
 
 void serialEvent() {
-  boolean stringComplete = false;
-  inputString="";  
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read(); 
-    // add it to the inputString:
-    inputString += inChar;
-    // if the incoming character is a newline, set a flag
-    // so the main loop can do something about it:
+  
+  boolean stringComplete = false;  
+  
+  while(Serial.available()){   
+    char inChar = (char)Serial.read();
+    inputString += inChar; 
     if (inChar == '\n') {
       stringComplete = true;
-    } 
-  
+    }  
   }
   
   if (stringComplete){
-    if (inputString == "VSSREAD\n"){
+    if (inputString == "VSSREAD\n"){      
       Serial.print("VSSFACTOR");
-      Serial.println(EEPROM.read(factorAddress));       
+      int factorAux = (EEPROM.read(highFactor)*100)+EEPROM.read(lowFactor); 
+      Serial.println(factorAux);       
     }
     else if(inputString.substring(0,6) == "VSSSET"){
-      EEPROM.write(factorAddress,inputString.substring(6,inputString.length()-1).toInt());  
+      EEPROM.write(highFactor,inputString.substring(6,8).toInt());
+      EEPROM.write(lowFactor,inputString.substring(8,inputString.length()-1).toInt());  
+      factor = (((EEPROM.read(highFactor)*100)+EEPROM.read(lowFactor)))/100;
       Serial.println("VSSOK");
     }
     else{
       Serial.print(inputString);
     }
+    inputString = "";
   }
-  
-  
 }
-  
-  
-  
-  
-  
-  
+
+
+
 

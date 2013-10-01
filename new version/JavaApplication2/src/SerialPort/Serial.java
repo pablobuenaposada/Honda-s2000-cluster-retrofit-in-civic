@@ -59,7 +59,7 @@ public class Serial {
     	while (!received.contains(Character.toString('\n'))){				
             if (inputStream.available() > 0){
                 bytesRead = inputStream.read(buffer);
-		received = received + new String(buffer).substring(0, bytesRead);
+		received = received + new String(buffer).substring(0, bytesRead);                
             }
             else{
 		if (System.currentTimeMillis() > timeoutTime){						

@@ -64,7 +64,7 @@ public class gui extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
 
-        factorSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 100, 1));
+        factorSpinner.setModel(new javax.swing.SpinnerNumberModel(Float.valueOf(10.0f), Float.valueOf(10.0f), Float.valueOf(99.99f), Float.valueOf(0.01f)));
         factorSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 factorSpinnerStateChanged(evt);
@@ -115,7 +115,6 @@ public class gui extends javax.swing.JFrame {
         });
 
         jLabel9.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel9.setIcon(new javax.swing.ImageIcon("/Users/DiSCLAiMER/Dropbox/beyro/gauge.jpg")); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Corbel", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -128,8 +127,6 @@ public class gui extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Corbel", 0, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(255, 255, 255));
         jLabel11.setText("Created by Pablo Buenaposada");
-
-        jLabel12.setIcon(new javax.swing.ImageIcon("/Users/DiSCLAiMER/Dropbox/beyro/s2000logo.jpg")); // NOI18N
 
         jLabel13.setFont(new java.awt.Font("Corbel", 0, 12)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
@@ -150,7 +147,6 @@ public class gui extends javax.swing.JFrame {
                             .add(24, 24, 24)
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                 .add(jLabel2)
-                                .add(factorSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 264, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                 .add(layout.createSequentialGroup()
                                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
@@ -181,7 +177,8 @@ public class gui extends javax.swing.JFrame {
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                         .add(bar6Spinner, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                        .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                        .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .add(factorSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                         .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                             .add(23, 23, 23)
                             .add(jLabel12)
@@ -262,7 +259,10 @@ public class gui extends javax.swing.JFrame {
         Serial serialPort = new Serial();
         try{
             serialPort.configPort("/dev/tty.usbserial","aa");
-            serialPort.write("VSSSET"+factorSpinner.getValue().toString()+Character.toString('\n'));
+            Float factor = (Float)factorSpinner.getValue();
+            factor = factor*100;
+            System.out.println("VSSSET"+factor.intValue()+Character.toString('\n'));
+            serialPort.write("VSSSET"+factor.intValue()+Character.toString('\n'));
             Thread.sleep(800);
             System.out.print(serialPort.read());        
             
@@ -335,8 +335,10 @@ public class gui extends javax.swing.JFrame {
             Thread.sleep(800);
             String received = serialPort.read();   
             System.out.println(received);
-            int factor = Integer.parseInt(received.substring(9,received.length()-2));
-            factorSpinner.setValue(factor);            
+            int factorHigh = Integer.parseInt(received.substring(9,11));
+            int factorLow = Integer.parseInt(received.substring(11,received.length()-2));            
+            factorSpinner.setValue((float)((factorHigh*100)+factorLow)/100); 
+            
         } catch (Exception ex) {            
             Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
         }
