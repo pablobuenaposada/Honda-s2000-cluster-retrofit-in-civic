@@ -4,10 +4,13 @@
 #define vssIn 8
 #define lowFactor 1
 #define highFactor 2
+#define samples 3
 
 String inputString = "";
 float frequency;
 float factor; //38.29;
+double sum=0;
+int count=0;
 
 void setup() {
   pinMode(vssOut, OUTPUT); //sets the pin as output
@@ -19,10 +22,18 @@ void setup() {
 }
 
 void loop() {  
-  if (FreqMeasure.available()) {    
-    frequency = F_CPU / FreqMeasure.read();   
-    tone(vssOut,frequency*factor,100);    
-  }
+  
+  if (FreqMeasure.available()){
+    // average several reading together
+    sum = sum + FreqMeasure.read();
+    count = count + 1;
+    if (count > samples) {
+      double frequency = F_CPU / (sum / count);
+      tone(vssOut,frequency*factor,100);
+      sum = 0;
+      count = 0;
+    }
+  }  
 }
 
 void serialEvent() {

@@ -269,7 +269,16 @@ public class gui extends javax.swing.JFrame {
 
     private int celsius2ADC(int temp){
         ///return (int)((3.265034284*(Math.pow(10, -19))*Math.pow(temp,10) - 1.951343817*(Math.pow(10, -16))*Math.pow(temp,9) + 4.870935413*(Math.pow(10, -14))*Math.pow(temp,8) - 6.647521002*(Math.pow(10, -12))*Math.pow(temp,7) + 5.449673997*(Math.pow(10, -10))*Math.pow(temp,6) - 2.706842568*(Math.pow(10, -8))*Math.pow(temp,5) + 6.673031789*(Math.pow(10, -7))*Math.pow(temp,4) + 4.716273857*(Math.pow(10, -6))*Math.pow(temp,3) - 3.72064706*(Math.pow(10, -4))*Math.pow(temp,2) - 4.939427319*(Math.pow(10, -2))*temp + 3.485338965)*(1024/5));
-        return temp;
+        double adc = 6.635798591*Math.pow(10,-18)*Math.pow(temp,10) - 3.480638401*Math.pow(10,-15)*Math.pow(temp,9) + 6.704626343*Math.pow(10,-13)*Math.pow(temp,8) - 5.336340831*Math.pow(10,-11)*Math.pow(temp,7) + 1.138079742*Math.pow(10,-9)*Math.pow(temp,6) + 3.884963462*Math.pow(10,-10)*Math.pow(temp,5) - 7.333856047*Math.pow(10,-7)*Math.pow(temp,4) + 1.407153592*Math.pow(10,-3)*Math.pow(temp,3) - 8.970575209*Math.pow(10,-2)*Math.pow(temp,2) - 8.438835855*temp + 795.7698102;
+        return (int) adc;
+        
+        //double celsuis = (0.1423*Math.pow(temp,6)) - (2.4938*Math.pow(temp,5))  + (17.837*Math.pow(temp,4)) - (68.698*Math.pow(temp,3)) + (154.69*Math.pow(temp,2)) - (232.75*temp) + 284.24;
+        //return ((temp - 32)*5)/9;        
+    }
+    
+    private int ADC2Celsius(int adc){
+        double temp = -5.305551811*Math.pow(10,-30)*Math.pow(adc,10) + 2.118880391*Math.pow(10,-26)*Math.pow(adc,9) - 3.637655991*Math.pow(10,-23)*Math.pow(adc,8)+ 3.505260564*Math.pow(10,-20)*Math.pow(adc,7) + 1.05045638*Math.pow(10,-15)*Math.pow(adc,6) - 3.837648081*Math.pow(10,-12)*Math.pow(adc,5)+ 5.631122679*Math.pow(10,-9)*Math.pow(adc,4)- 4.44258481*Math.pow(10,-6)*Math.pow(adc,3) + 2.04885862*Math.pow(10,-3)*Math.pow(adc,2) - 6.314312776*Math.pow(10,-1)*adc + 140.1463525;
+        return (int) temp;
     }
     
     private void setConfigBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setConfigBtnActionPerformed
@@ -376,12 +385,12 @@ public class gui extends javax.swing.JFrame {
                 String received = serialPort.read(); 
                 System.out.println(received);
                 String[] split = received.substring(9).split("\\.");            
-                bar1Spinner.setValue(Integer.parseInt(split[0]));
-                bar2Spinner.setValue(Integer.parseInt(split[1]));
-                bar3Spinner.setValue(Integer.parseInt(split[2]));
-                bar4Spinner.setValue(Integer.parseInt(split[3]));
-                bar5Spinner.setValue(Integer.parseInt(split[4]));
-                bar6Spinner.setValue(Integer.parseInt(split[5].substring(0, split[5].length()-2)));                       
+                bar1Spinner.setValue(ADC2Celsius(Integer.parseInt(split[0])));
+                bar2Spinner.setValue(ADC2Celsius(Integer.parseInt(split[1])));
+                bar3Spinner.setValue(ADC2Celsius(Integer.parseInt(split[2])));
+                bar4Spinner.setValue(ADC2Celsius(Integer.parseInt(split[3])));
+                bar5Spinner.setValue(ADC2Celsius(Integer.parseInt(split[4])));
+                bar6Spinner.setValue(ADC2Celsius(Integer.parseInt(split[5].substring(0, split[5].length()-2))));                       
                 
             } catch (Exception ex) {
                 Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
