@@ -1,12 +1,12 @@
 #include <TimerOne.h> //this library will allow us to use pwm signals with custom period
-#include <EEPROM.h>
+#include <EEPROMEx.h>
 
 #define adc1Address 1
-#define adc2Address 2
-#define adc3Address 3
-#define adc4Address 4
-#define adc5Address 5
-#define adc6Address 6
+#define adc2Address 5
+#define adc3Address 9
+#define adc4Address 13
+#define adc5Address 17
+#define adc6Address 21
 
 int ectOut = 9;
 int ectIn = A1;
@@ -31,12 +31,12 @@ void setup(){
   pinMode(ectOut, OUTPUT); //sets the pin as output
   pinMode(ectIn, INPUT); //sets the pin as input
   
-  ectADC1 = EEPROM.read(adc1Address);
-  ectADC2 = EEPROM.read(adc2Address);
-  ectADC3 = EEPROM.read(adc3Address);
-  ectADC4 = EEPROM.read(adc4Address);
-  ectADC5 = EEPROM.read(adc5Address);
-  ectADC6 = EEPROM.read(adc6Address);
+  ectADC1 = EEPROM.readInt(adc1Address);
+  ectADC2 = EEPROM.readInt(adc2Address);
+  ectADC3 = EEPROM.readInt(adc3Address);
+  ectADC4 = EEPROM.readInt(adc4Address);
+  ectADC5 = EEPROM.readInt(adc5Address);
+  ectADC6 = EEPROM.readInt(adc6Address);
 
   inputString.reserve(200);
   Serial.begin(9600);    
@@ -77,26 +77,19 @@ int ectReadandUpdate(){
  
 void loop(){
   
-  //we read ect sensor every 5 seconds
   if (millis() >= waitUntil){ ;
     ectReadandUpdate();
     waitUntil = millis() + update; 
   } 
-  delay(800);
 }
 
 void serialEvent() {
   
-  boolean stringComplete = false;
-  inputString="";  
+  boolean stringComplete = false;  
   
-  while (Serial.available()) {
-    // get the new byte:
-    char inChar = (char)Serial.read(); 
-    // add it to the inputString:
-    inputString += inChar;
-    // if the incoming character is a newline, set a flag
-    // so the main loop can do something about it:
+  while (Serial.available()){    
+    char inChar = (char)Serial.read();    
+    inputString += inChar;   
     if (inChar == '\n') {
       stringComplete = true;
     }  
@@ -104,44 +97,47 @@ void serialEvent() {
 
   if (stringComplete){
   
-    if (inputString == "ECTREAD\n"){      
+    if(inputString == "ECTREAD\n"){      
       Serial.print("ECTVALUES");
-      Serial.print(EEPROM.read(adc1Address));
+      Serial.print(EEPROM.readInt(adc1Address));
       Serial.print(".");
-      Serial.print(EEPROM.read(adc2Address));
+      Serial.print(EEPROM.readInt(adc2Address));
       Serial.print(".");
-      Serial.print(EEPROM.read(adc3Address));
+      Serial.print(EEPROM.readInt(adc3Address));
       Serial.print(".");
-      Serial.print(EEPROM.read(adc4Address));
+      Serial.print(EEPROM.readInt(adc4Address));
       Serial.print(".");
-      Serial.print(EEPROM.read(adc5Address));
+      Serial.print(EEPROM.readInt(adc5Address));
       Serial.print(".");
-      Serial.println(EEPROM.read(adc6Address));      
+      Serial.println(EEPROM.readInt(adc6Address));      
     }
     
     else if(inputString.substring(0,6) == "ECTSET"){
-      EEPROM.write(adc1Address,inputString.substring(6,9).toInt());
-      EEPROM.write(adc2Address,inputString.substring(9,12).toInt());
-      EEPROM.write(adc3Address,inputString.substring(12,15).toInt());
-      EEPROM.write(adc4Address,inputString.substring(15,18).toInt());
-      EEPROM.write(adc5Address,inputString.substring(18,21).toInt());
-      EEPROM.write(adc6Address,inputString.substring(21,24).toInt());
-      
-      Serial.println("ECTOK");
-      
-      ectADC1 = EEPROM.read(adc1Address);
-      ectADC2 = EEPROM.read(adc2Address);
-      ectADC3 = EEPROM.read(adc3Address);
-      ectADC4 = EEPROM.read(adc4Address);
-      ectADC5 = EEPROM.read(adc5Address);
-      ectADC6 = EEPROM.read(adc6Address);
-      
-      
-      
+      EEPROM.writeInt(adc1Address,inputString.substring(6,10).toInt());
+      EEPROM.writeInt(adc2Address,inputString.substring(10,14).toInt());
+      EEPROM.writeInt(adc3Address,inputString.substring(14,18).toInt());
+      EEPROM.writeInt(adc4Address,inputString.substring(18,22).toInt());
+      EEPROM.writeInt(adc5Address,inputString.substring(22,26).toInt());
+      EEPROM.writeInt(adc6Address,inputString.substring(26,30).toInt());      
+      Serial.println("ECTOK");      
+      ectADC1 = EEPROM.readInt(adc1Address);
+      ectADC2 = EEPROM.readInt(adc2Address);
+      ectADC3 = EEPROM.readInt(adc3Address);
+      ectADC4 = EEPROM.readInt(adc4Address);
+      ectADC5 = EEPROM.readInt(adc5Address);
+      ectADC6 = EEPROM.readInt(adc6Address);     
     }
+    
+    else if(inputString == "ECTNOW\n"){ 
+      Serial.print("ECTACTUAL");
+      Serial.println(analogRead(ectIn));  
+    }
+    
     else{
       Serial.print(inputString);
     }
+    
+    inputString="";  
   }
 }
   
