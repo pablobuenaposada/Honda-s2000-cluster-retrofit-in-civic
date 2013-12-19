@@ -1,31 +1,128 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package GUI;
 
 import SerialPort.Serial;
-import gnu.io.NoSuchPortException;
-import gnu.io.PortInUseException;
-import gnu.io.UnsupportedCommOperationException;
 import java.awt.Color;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JSpinner;
+import javax.swing.JOptionPane;
 
-/**
- *
- * @author DiSCLAiMER
- */
 public class gui extends javax.swing.JFrame {
 
+    //Arrays for engine coolant temperature conversion
+    ArrayList<Integer> temps = new ArrayList<Integer>();
+    ArrayList<Integer> adcs = new ArrayList<Integer>();
+ 
     /**
      * Creates new form gui
      */
-    public gui() {
+    public gui() {        
         initComponents();
         this.getContentPane().setBackground(Color.BLACK);
+        
+        //temp vs adc value arrays
+        temps.add(20); adcs.add(562);
+        temps.add(21); adcs.add(554);
+        temps.add(22); adcs.add(547);
+        temps.add(23); adcs.add(539);
+        temps.add(24); adcs.add(530);
+        temps.add(25); adcs.add(519);
+        temps.add(26); adcs.add(505);
+        temps.add(27); adcs.add(491);
+        temps.add(28); adcs.add(478);
+        temps.add(29); adcs.add(466);
+        temps.add(30); adcs.add(456);
+        temps.add(31); adcs.add(446);
+        temps.add(32); adcs.add(437);
+        temps.add(33); adcs.add(428);
+        temps.add(34); adcs.add(419);
+        temps.add(35); adcs.add(410);
+        temps.add(36); adcs.add(401);
+        temps.add(37); adcs.add(391);
+        temps.add(38); adcs.add(382);
+        temps.add(39); adcs.add(372);
+        temps.add(40); adcs.add(362);
+        temps.add(41); adcs.add(352);
+        temps.add(42); adcs.add(342);
+        temps.add(43); adcs.add(333);
+        temps.add(44); adcs.add(324);
+        temps.add(45); adcs.add(316);
+        temps.add(46); adcs.add(308);
+        temps.add(47); adcs.add(300);
+        temps.add(48); adcs.add(293);
+        temps.add(49); adcs.add(286);
+        temps.add(50); adcs.add(279);
+        temps.add(51); adcs.add(272);
+        temps.add(52); adcs.add(265);
+        temps.add(53); adcs.add(258);
+        temps.add(54); adcs.add(252);
+        temps.add(55); adcs.add(245);
+        temps.add(56); adcs.add(239);
+        temps.add(57); adcs.add(232);
+        temps.add(58); adcs.add(225);
+        temps.add(59); adcs.add(219);
+        temps.add(60); adcs.add(212);
+        temps.add(61); adcs.add(206);
+        temps.add(62); adcs.add(200);
+        temps.add(63); adcs.add(194);
+        temps.add(64); adcs.add(188);
+        temps.add(65); adcs.add(182);
+        temps.add(66); adcs.add(177);
+        temps.add(67); adcs.add(172);
+        temps.add(68); adcs.add(167);
+        temps.add(69); adcs.add(162);
+        temps.add(70); adcs.add(157);
+        temps.add(71); adcs.add(153);
+        temps.add(72); adcs.add(148);
+        temps.add(73); adcs.add(144);
+        temps.add(74); adcs.add(139);
+        temps.add(75); adcs.add(135);
+        temps.add(76); adcs.add(131);
+        temps.add(77); adcs.add(126);
+        temps.add(78); adcs.add(122);
+        temps.add(79); adcs.add(118);
+        temps.add(80); adcs.add(113);
+        temps.add(81); adcs.add(108);
+        temps.add(82); adcs.add(103);
+        temps.add(83); adcs.add(98);
+        temps.add(84); adcs.add(93);
+        temps.add(85); adcs.add(87);
+        temps.add(86); adcs.add(81);
+        temps.add(87); adcs.add(75);
+        temps.add(88); adcs.add(70);
+        temps.add(89); adcs.add(66);
+        temps.add(90); adcs.add(62);
+        temps.add(91); adcs.add(59);
+        temps.add(92); adcs.add(56);
+        temps.add(93); adcs.add(54);
+        temps.add(94); adcs.add(52);
+        temps.add(95); adcs.add(50);
+        temps.add(96); adcs.add(48);
+        temps.add(97); adcs.add(47);
+        temps.add(98); adcs.add(45);
+        temps.add(99); adcs.add(44);
+        temps.add(100); adcs.add(43);
+        temps.add(101); adcs.add(42);
+        temps.add(102); adcs.add(41);
+        temps.add(103); adcs.add(40);
+        temps.add(104); adcs.add(39);
+        temps.add(105); adcs.add(38);
+        temps.add(106); adcs.add(37);
+        temps.add(107); adcs.add(37);
+        temps.add(108); adcs.add(36);
+        temps.add(109); adcs.add(35);
+        temps.add(110); adcs.add(34);
+        temps.add(111); adcs.add(34);
+        temps.add(112); adcs.add(33);
+        temps.add(113); adcs.add(33);
+        temps.add(114); adcs.add(32);
+        temps.add(115); adcs.add(31);
+        temps.add(116); adcs.add(31);
+        temps.add(117); adcs.add(30);
+        temps.add(118); adcs.add(30);
+        temps.add(119); adcs.add(29);
+        temps.add(120); adcs.add(28);       
     }
 
     /**
@@ -61,6 +158,8 @@ public class gui extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -101,6 +200,18 @@ public class gui extends javax.swing.JFrame {
         jLabel8.setForeground(new java.awt.Color(204, 0, 51));
         jLabel8.setText("    Bar 6");
 
+        bar1Spinner.setModel(new javax.swing.SpinnerNumberModel(20, 20, 120, 1));
+
+        bar2Spinner.setModel(new javax.swing.SpinnerNumberModel(20, 20, 120, 1));
+
+        bar4Spinner.setModel(new javax.swing.SpinnerNumberModel(20, 20, 120, 1));
+
+        bar3Spinner.setModel(new javax.swing.SpinnerNumberModel(20, 20, 120, 1));
+
+        bar5Spinner.setModel(new javax.swing.SpinnerNumberModel(20, 20, 120, 1));
+
+        bar6Spinner.setModel(new javax.swing.SpinnerNumberModel(20, 20, 120, 1));
+
         setConfigBtn.setText("Set Config");
         setConfigBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,87 +251,97 @@ public class gui extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/s2000logo.jpg"))); // NOI18N
+
+        jLabel15.setIcon(new javax.swing.ImageIcon(getClass().getResource("/GUI/gauge.jpg"))); // NOI18N
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jLabel11)
+                .add(36, 36, 36)
+                .add(jButton1))
             .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(jLabel11)
-                        .add(36, 36, 36)
-                        .add(jButton1))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                .add(layout.createSequentialGroup()
-                                    .add(24, 24, 24)
-                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(jLabel2)
-                                        .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 264, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .add(layout.createSequentialGroup()
-                                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                                .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .add(bar1Spinner, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                .add(layout.createSequentialGroup()
-                                                    .add(readConfigBtn)
-                                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 29, Short.MAX_VALUE)
-                                                    .add(setConfigBtn))
-                                                .add(layout.createSequentialGroup()
-                                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                        .add(bar2Spinner, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                                        .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                        .add(bar3Spinner, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                                        .add(jLabel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                        .add(bar4Spinner, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                                        .add(jLabel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                        .add(bar5Spinner, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                                        .add(jLabel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                                .add(bar6Spinner, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-                                                .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                        .add(factorSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                                    .add(23, 23, 23)
-                                    .add(jLabel12)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                    .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jLabel2)
+                            .add(jLabel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 264, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createSequentialGroup()
-                                .add(60, 60, 60)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                    .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .add(bar1Spinner))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                    .add(jLabel9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(jLabel13, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .add(0, 11, Short.MAX_VALUE)))
-                .addContainerGap())
+                                    .add(layout.createSequentialGroup()
+                                        .add(readConfigBtn)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .add(setConfigBtn))
+                                    .add(layout.createSequentialGroup()
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(bar2Spinner)
+                                            .add(jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(bar3Spinner)
+                                            .add(jLabel5, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(bar4Spinner)
+                                            .add(jLabel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                            .add(bar5Spinner)
+                                            .add(jLabel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                    .add(bar6Spinner)
+                                    .add(jLabel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .add(factorSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 69, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(layout.createSequentialGroup()
+                                .add(36, 36, 36)
+                                .add(jLabel9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 214, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(10, 10, 10))
+                    .add(layout.createSequentialGroup()
+                        .add(jLabel14)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jLabel12)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jLabel10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 185, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .add(0, 0, Short.MAX_VALUE))
+            .add(layout.createSequentialGroup()
+                .add(65, 65, 65)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel13)
+                    .add(jLabel15))
+                .add(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(12, 12, 12)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                    .add(jLabel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(jLabel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .add(13, 13, 13)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                        .add(jLabel10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(jLabel12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jLabel14))
                 .add(18, 18, 18)
+                .add(jLabel1)
+                .add(16, 16, 16)
+                .add(factorSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(jLabel2)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabel9)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel15)
+                .add(0, 0, 0)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(jLabel1)
-                        .add(16, 16, 16)
-                        .add(factorSpinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(18, 18, 18)
-                        .add(jLabel2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jLabel9)
-                        .add(0, 0, 0)
                         .add(jLabel13)
                         .add(10, 10, 10)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -248,16 +369,16 @@ public class gui extends javax.swing.JFrame {
                                     .add(jLabel8)
                                     .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                     .add(bar6Spinner, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                        .add(18, 18, Short.MAX_VALUE)
+                        .add(18, 27, Short.MAX_VALUE)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(readConfigBtn)
                             .add(setConfigBtn))
                         .add(18, 18, 18)
                         .add(jLabel11))
-                    .add(layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .add(135, 135, 135)
                         .add(jButton1)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(9, Short.MAX_VALUE))
         );
 
         pack();
@@ -268,89 +389,97 @@ public class gui extends javax.swing.JFrame {
     }//GEN-LAST:event_factorSpinnerStateChanged
 
     private int celsius2ADC(int temp){
-        ///return (int)((3.265034284*(Math.pow(10, -19))*Math.pow(temp,10) - 1.951343817*(Math.pow(10, -16))*Math.pow(temp,9) + 4.870935413*(Math.pow(10, -14))*Math.pow(temp,8) - 6.647521002*(Math.pow(10, -12))*Math.pow(temp,7) + 5.449673997*(Math.pow(10, -10))*Math.pow(temp,6) - 2.706842568*(Math.pow(10, -8))*Math.pow(temp,5) + 6.673031789*(Math.pow(10, -7))*Math.pow(temp,4) + 4.716273857*(Math.pow(10, -6))*Math.pow(temp,3) - 3.72064706*(Math.pow(10, -4))*Math.pow(temp,2) - 4.939427319*(Math.pow(10, -2))*temp + 3.485338965)*(1024/5));
-        double adc = 6.635798591*Math.pow(10,-18)*Math.pow(temp,10) - 3.480638401*Math.pow(10,-15)*Math.pow(temp,9) + 6.704626343*Math.pow(10,-13)*Math.pow(temp,8) - 5.336340831*Math.pow(10,-11)*Math.pow(temp,7) + 1.138079742*Math.pow(10,-9)*Math.pow(temp,6) + 3.884963462*Math.pow(10,-10)*Math.pow(temp,5) - 7.333856047*Math.pow(10,-7)*Math.pow(temp,4) + 1.407153592*Math.pow(10,-3)*Math.pow(temp,3) - 8.970575209*Math.pow(10,-2)*Math.pow(temp,2) - 8.438835855*temp + 795.7698102;
-        return (int) adc;
-        
-        //double celsuis = (0.1423*Math.pow(temp,6)) - (2.4938*Math.pow(temp,5))  + (17.837*Math.pow(temp,4)) - (68.698*Math.pow(temp,3)) + (154.69*Math.pow(temp,2)) - (232.75*temp) + 284.24;
-        //return ((temp - 32)*5)/9;        
+        return adcs.get(temps.indexOf(temp));
     }
     
     private int ADC2Celsius(int adc){
-        double temp = -5.305551811*Math.pow(10,-30)*Math.pow(adc,10) + 2.118880391*Math.pow(10,-26)*Math.pow(adc,9) - 3.637655991*Math.pow(10,-23)*Math.pow(adc,8)+ 3.505260564*Math.pow(10,-20)*Math.pow(adc,7) + 1.05045638*Math.pow(10,-15)*Math.pow(adc,6) - 3.837648081*Math.pow(10,-12)*Math.pow(adc,5)+ 5.631122679*Math.pow(10,-9)*Math.pow(adc,4)- 4.44258481*Math.pow(10,-6)*Math.pow(adc,3) + 2.04885862*Math.pow(10,-3)*Math.pow(adc,2) - 6.314312776*Math.pow(10,-1)*adc + 140.1463525;
-        return (int) temp;
+        return temps.get(adcs.indexOf(adc));
     }
     
-    private void setConfigBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setConfigBtnActionPerformed
-        
-        Serial serialPort = new Serial();
-        try{
-            serialPort.configPort("/dev/tty.usbserial","aa");
-            Float factor = (Float)factorSpinner.getValue();
-            factor = factor*100;
-            System.out.println("VSSSET"+factor.intValue()+Character.toString('\n'));
-            serialPort.write("VSSSET"+factor.intValue()+Character.toString('\n'));
-            Thread.sleep(800);
-            System.out.print(serialPort.read());        
-            
-        } catch (Exception ex) {
-            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            serialPort.closePort();
-        } catch (IOException ex) {
-            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
+    private boolean checkBarsValues(){
         int temp1 = Integer.parseInt(bar1Spinner.getValue().toString());
         int temp2 = Integer.parseInt(bar2Spinner.getValue().toString());
         int temp3 = Integer.parseInt(bar3Spinner.getValue().toString());
         int temp4 = Integer.parseInt(bar4Spinner.getValue().toString());
         int temp5 = Integer.parseInt(bar5Spinner.getValue().toString());
-        int temp6 = Integer.parseInt(bar6Spinner.getValue().toString());        
+        int temp6 = Integer.parseInt(bar6Spinner.getValue().toString());
+        if ((temp1 < temp2) && (temp2 < temp3) && (temp3 < temp4) && (temp4 < temp5) && (temp5 < temp6)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
+    private void setConfigBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_setConfigBtnActionPerformed
         
-        temp1 = celsius2ADC(temp1);
-        temp2 = celsius2ADC(temp2);
-        temp3 = celsius2ADC(temp3);
-        temp4 = celsius2ADC(temp4);
-        temp5 = celsius2ADC(temp5);
-        temp6 = celsius2ADC(temp6); 
-        
-        /*temp1 = 203;
-        temp2 = 156;
-        temp3 = 122;
-        temp4 = 84;
-        temp5 = 53;
-        temp6 = 19;*/
-        
-        String bar1 = String.format("%04d",temp1); 
-        String bar2 = String.format("%04d",temp2); 
-        String bar3 = String.format("%04d",temp3); 
-        String bar4 = String.format("%04d",temp4); 
-        String bar5 = String.format("%04d",temp5); 
-        String bar6 = String.format("%04d",temp6); 
-        
-        System.out.println(bar1);
-        
-        
-        Serial serialPort2 = new Serial();
-        try{
-            serialPort2.configPort("/dev/tty.usbserial","aa");
-            serialPort2.write("ECTSET"+bar1+bar2+bar3+bar4+bar5+bar6+Character.toString('\n'));
-            Thread.sleep(800);
-            System.out.print(serialPort2.read());        
+        if(checkBarsValues()){        
+            Serial serialPort = new Serial();
+            try{
+                serialPort.configPort("/dev/tty.usbserial","aa");
+                Float factor = (Float)factorSpinner.getValue();
+                factor = factor*100;
+                System.out.println("VSSSET"+factor.intValue()+Character.toString('\n'));
+                serialPort.write("VSSSET"+factor.intValue()+Character.toString('\n'));
+                Thread.sleep(800);
+                System.out.print(serialPort.read());        
             
-        } catch (Exception ex) {
-            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error with the USB communication","Error",JOptionPane.ERROR_MESSAGE);
+            }
+            try {
+                serialPort.closePort();
+            } catch (IOException ex) {
+                Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+            int temp1 = Integer.parseInt(bar1Spinner.getValue().toString());
+            int temp2 = Integer.parseInt(bar2Spinner.getValue().toString());
+            int temp3 = Integer.parseInt(bar3Spinner.getValue().toString());
+            int temp4 = Integer.parseInt(bar4Spinner.getValue().toString());
+            int temp5 = Integer.parseInt(bar5Spinner.getValue().toString());
+            int temp6 = Integer.parseInt(bar6Spinner.getValue().toString());        
+        
+            temp1 = celsius2ADC(temp1);
+            temp2 = celsius2ADC(temp2);
+            temp3 = celsius2ADC(temp3);
+            temp4 = celsius2ADC(temp4);
+            temp5 = celsius2ADC(temp5);
+            temp6 = celsius2ADC(temp6); 
+
+            String bar1 = String.format("%04d",temp1); 
+            String bar2 = String.format("%04d",temp2); 
+            String bar3 = String.format("%04d",temp3); 
+            String bar4 = String.format("%04d",temp4); 
+            String bar5 = String.format("%04d",temp5); 
+            String bar6 = String.format("%04d",temp6);             
+
+            Serial serialPort2 = new Serial();
+            try{
+                serialPort2.configPort("/dev/tty.usbserial","aa");
+                serialPort2.write("ECTSET"+bar1+bar2+bar3+bar4+bar5+bar6+Character.toString('\n'));
+                Thread.sleep(800);
+                String input = serialPort2.read();
+                System.out.print(input);
+                if(input.endsWith("ECTOK")){
+                    JOptionPane.showMessageDialog(this, "Done!","Result",JOptionPane.INFORMATION_MESSAGE);
+                }
+                else{
+                    JOptionPane.showMessageDialog(this, "No feedback from the USB device, probably no settings uploaded","Result",JOptionPane.WARNING_MESSAGE);
+                }
+                
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(this, "Error with the USB communication","Error",JOptionPane.ERROR_MESSAGE);
+            }
+            try {
+                serialPort2.closePort();
+            } catch (IOException ex) {
+                Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+            } 
         }
-        try {
-            serialPort2.closePort();
-        } catch (IOException ex) {
-            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+        else{
+            JOptionPane.showMessageDialog(this, "All the temperatures must be higher than their previous one","Seems that we have a problem",JOptionPane.ERROR_MESSAGE);
         }
-        
-        
-        
     }//GEN-LAST:event_setConfigBtnActionPerformed
 
     private void readConfigBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readConfigBtnActionPerformed
@@ -367,7 +496,7 @@ public class gui extends javax.swing.JFrame {
             factorSpinner.setValue((float)((factorHigh*100)+factorLow)/100); 
             
         } catch (Exception ex) {            
-            Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Error with the USB communication","Error",JOptionPane.ERROR_MESSAGE);
         }
         try {
             serialPort.closePort();
@@ -375,34 +504,30 @@ public class gui extends javax.swing.JFrame {
             Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        Serial serialPort2 = new Serial();
+        Serial serialPort2 = new Serial();    
+        try {
+            serialPort2.configPort("/dev/tty.usbserial","aa");
+            serialPort2.write("ECTREAD"+Character.toString('\n'));
+            Thread.sleep(800);
+            String received = serialPort.read(); 
+            System.out.println(received);
+            String[] split = received.substring(9).split("\\.");            
+            bar1Spinner.setValue(ADC2Celsius(Integer.parseInt(split[0])));
+            bar2Spinner.setValue(ADC2Celsius(Integer.parseInt(split[1])));
+            bar3Spinner.setValue(ADC2Celsius(Integer.parseInt(split[2])));
+            bar4Spinner.setValue(ADC2Celsius(Integer.parseInt(split[3])));
+            bar5Spinner.setValue(ADC2Celsius(Integer.parseInt(split[4])));
+            bar6Spinner.setValue(ADC2Celsius(Integer.parseInt(split[5].substring(0, split[5].length()-2))));
+            JOptionPane.showMessageDialog(this, "Done!","Result",JOptionPane.INFORMATION_MESSAGE);
             
-            
-            try {
-                serialPort2.configPort("/dev/tty.usbserial","aa");
-                serialPort2.write("ECTREAD"+Character.toString('\n'));
-                Thread.sleep(800);
-                String received = serialPort.read(); 
-                System.out.println(received);
-                String[] split = received.substring(9).split("\\.");            
-                bar1Spinner.setValue(ADC2Celsius(Integer.parseInt(split[0])));
-                bar2Spinner.setValue(ADC2Celsius(Integer.parseInt(split[1])));
-                bar3Spinner.setValue(ADC2Celsius(Integer.parseInt(split[2])));
-                bar4Spinner.setValue(ADC2Celsius(Integer.parseInt(split[3])));
-                bar5Spinner.setValue(ADC2Celsius(Integer.parseInt(split[4])));
-                bar6Spinner.setValue(ADC2Celsius(Integer.parseInt(split[5].substring(0, split[5].length()-2))));                       
-                
-            } catch (Exception ex) {
-                Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error with the USB communication","Error",JOptionPane.ERROR_MESSAGE);
+        }        
         try {
             serialPort2.closePort();
         } catch (IOException ex) {
             Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
+        }       
     }//GEN-LAST:event_readConfigBtnActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -412,9 +537,7 @@ public class gui extends javax.swing.JFrame {
             serialPort.write("ECTNOW"+Character.toString('\n'));
             Thread.sleep(800);
             String received = serialPort.read();   
-            System.out.println(received);
-            
-            
+            System.out.println(received);            
         } catch (Exception ex) {            
             Logger.getLogger(gui.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -473,6 +596,8 @@ public class gui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
