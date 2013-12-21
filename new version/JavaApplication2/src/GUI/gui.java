@@ -100,29 +100,29 @@ public class gui extends javax.swing.JFrame {
         temps.add(95); adcs.add(50);
         temps.add(96); adcs.add(48);
         temps.add(97); adcs.add(47);
-        temps.add(98); adcs.add(45);
-        temps.add(99); adcs.add(44);
-        temps.add(100); adcs.add(43);
-        temps.add(101); adcs.add(42);
-        temps.add(102); adcs.add(41);
-        temps.add(103); adcs.add(40);
-        temps.add(104); adcs.add(39);
-        temps.add(105); adcs.add(38);
-        temps.add(106); adcs.add(37);
+        temps.add(98); adcs.add(46);
+        temps.add(99); adcs.add(45);
+        temps.add(100); adcs.add(44);
+        temps.add(101); adcs.add(43);
+        temps.add(102); adcs.add(42);
+        temps.add(103); adcs.add(41);
+        temps.add(104); adcs.add(40);
+        temps.add(105); adcs.add(39);
+        temps.add(106); adcs.add(38);
         temps.add(107); adcs.add(37);
         temps.add(108); adcs.add(36);
         temps.add(109); adcs.add(35);
         temps.add(110); adcs.add(34);
-        temps.add(111); adcs.add(34);
-        temps.add(112); adcs.add(33);
-        temps.add(113); adcs.add(33);
-        temps.add(114); adcs.add(32);
-        temps.add(115); adcs.add(31);
-        temps.add(116); adcs.add(31);
-        temps.add(117); adcs.add(30);
-        temps.add(118); adcs.add(30);
-        temps.add(119); adcs.add(29);
-        temps.add(120); adcs.add(28);       
+        temps.add(111); adcs.add(33);
+        temps.add(112); adcs.add(32);
+        temps.add(113); adcs.add(31);
+        temps.add(114); adcs.add(30);
+        temps.add(115); adcs.add(29);
+        temps.add(116); adcs.add(28);
+        temps.add(117); adcs.add(27);
+        temps.add(118); adcs.add(26);
+        temps.add(119); adcs.add(25);
+        temps.add(120); adcs.add(24);       
     }
 
     /**
@@ -461,7 +461,7 @@ public class gui extends javax.swing.JFrame {
                 Thread.sleep(800);
                 String input = serialPort2.read();
                 System.out.print(input);
-                if(input.endsWith("ECTOK")){
+                if(input.substring(0,5).equals("ECTOK")){
                     JOptionPane.showMessageDialog(this, "Done!","Result",JOptionPane.INFORMATION_MESSAGE);
                 }
                 else{
